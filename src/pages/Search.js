@@ -67,7 +67,7 @@ class Search extends Component {
             handleInputChange={this.handleInputChange}
            
           />
-          {[this.state.employees].map((res) => (
+          {[...this.state.employees].map((res) => (
             <SearchResults
             firstName={res.firstName}
             
