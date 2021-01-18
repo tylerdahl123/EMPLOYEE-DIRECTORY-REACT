@@ -70,6 +70,8 @@ class Search extends Component {
           {[...this.state.employees].map((res) => (
             <SearchResults
             firstName={res.firstName}
+            lastName={res.lastName}
+            pictures={res.picture}
             
             
             

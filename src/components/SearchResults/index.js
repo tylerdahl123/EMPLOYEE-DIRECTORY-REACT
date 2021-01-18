@@ -18,7 +18,7 @@ import React from 'react';
 
   function SearchResults(props) {
     return (
-      <thead>
+      
         <tr>
           <th>
             <img alt={props.firstName} src={props.picture} />
@@ -29,7 +29,7 @@ import React from 'react';
           <td>{props.phone}</td>
           <td>{props.city}</td>
         </tr>
-      </thead>
+     
     );
   }
   
