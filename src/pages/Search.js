@@ -8,16 +8,25 @@ import Alert from "../components/Alert";
 class Search extends Component {
   state = {
     search: "",
-    users: [],
+    names: [],
     results: [],
     error: ""
   };
 
   // When the component mounts, get a list of all available base breeds and update this.state.breeds
-  componentDidMount() {
-    API.getUsers()
-      .then(res => this.setState({ users: res.data.name }))
-      .catch(err => console.log(err));
+  componentDidMount(){
+      API.getUsers()
+      .then((res) => {
+          console.log(res);
+          this.setState({
+              employees: res.data.results.map((event, i) => ({
+                  firstName: event.name.first,
+                  lastName: event.name.last,
+                  picture: event.picture.large,
+              })),
+          });
+      })
+      .catch((err) => console.log(err));
   }
 
   handleInputChange = event => {
@@ -39,7 +48,7 @@ class Search extends Component {
     return (
       <div>
         <Container style={{ minHeight: "80%" }}>
-          <h1 className="text-center">Search By Breed!</h1>
+          <h1 className="text-center">Search For a User</h1>
           <Alert
             type="danger"
             style={{ opacity: this.state.error ? 1 : 0, marginBottom: 10 }}
@@ -49,7 +58,7 @@ class Search extends Component {
           <SearchForm
             handleFormSubmit={this.handleFormSubmit}
             handleInputChange={this.handleInputChange}
-            breeds={this.state.breeds}
+            names={this.state.names}
           />
           <SearchResults results={this.state.results} />
         </Container>
