@@ -1,36 +1,37 @@
-// import React from "react";
-// import "./style.css";
+
 
 // function SearchResults(props) {
 //   return (
 //     <ul className="list-group search-results">
 //       {props.results.map(result => (
 //         <li key={result} className="list-group-item">
-//           <img alt="Employee" src={result} className="img-fluid" />
+//           <img alt="Employee" src={props.image} className="img-fluid" />
+//           <li>{props.name}</li>
 //         </li>
 //       ))}
 //     </ul>
 //   );
-// }
+// }//need to build out the thing that the data will rest in for somereason it seems as though i haven o way of being able to display the data on the screen.
 
-// export default SearchResults;
 import React from 'react';
 
-function SearchResults(props) {
-  return (
-    <div>
-      <ul>
-        <h1>
-          <img alt={props.firstName} src={props.picture} />
-        </h1>
-        <li>{props.firstName}</li>
-        <li>{props.lastName}</li>
-        <li>{props.email}</li>
-        <li>{props.phone}</li>
-        <li>{props.city}</li>
-      </ul>
-    </div>
-  );
-}
+
+  function SearchResults(props) {
+    return (
+      <thead>
+        <tr>
+          <th>
+            <img alt={props.firstName} src={props.picture} />
+          </th>
+          <td>{props.firstName}</td>
+          <td>{props.lastName}</td>
+          <td>{props.email}</td>
+          <td>{props.phone}</td>
+          <td>{props.city}</td>
+        </tr>
+      </thead>
+    );
+  }
+  
 
 export default SearchResults;
