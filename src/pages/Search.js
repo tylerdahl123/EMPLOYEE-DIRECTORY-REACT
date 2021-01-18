@@ -49,6 +49,7 @@ class Search extends Component {
       })
       .catch(err => this.setState({ error: err.message }));
   };
+  //in pupster they have the results get autofilled into the searchbar for the Componenet did mount feature...i need to be able to translate that into the whole div.
   render() {
     return (
       <div>
@@ -66,10 +67,15 @@ class Search extends Component {
             handleInputChange={this.handleInputChange}
            
           />
-          <SearchResults 
-          results={this.state.results} 
-  
-          />
+          {[this.state.employees].map((res) => (
+            <SearchResults
+            firstName={res.firstName}
+            
+            
+            
+            />
+          ))}
+         
         </Container>
       </div>
     );
@@ -77,6 +83,7 @@ class Search extends Component {
 }
 //it has something to do with the set up of the table and being able to find it within the api...i have no structure it seems when im trying to call;
 //what i need to do is figure out why this code works and mine doesnt 
+//what is the differnce between pupster and this? if i can figure that out i can get it working...
 //i belive it lies within the creation of the search results div....
 
 
