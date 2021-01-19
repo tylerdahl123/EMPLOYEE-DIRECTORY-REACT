@@ -4,6 +4,7 @@ import Container from "../components/Container";
 import SearchForm from "../components/SearchForm";
 import SearchResults from "../components/SearchResults";
 import Alert from "../components/Alert";
+import Header from "../components/Header/style.css"
 
 class Search extends Component {
   state = {
@@ -25,7 +26,6 @@ class Search extends Component {
             lastName: event.name.last,
             email: event.email,
             phone: event.phone,
-            city: event.location.city,
             picture: event.picture.large,
             key: id,
           })),
@@ -33,6 +33,18 @@ class Search extends Component {
       })
       .catch((err) => console.log(err));
   }
+
+
+
+findEmployee = async (input) => {
+  const filtered = this.state.employees.filter(employee => {
+    return employee.name.toLowerCase().includes(input.toLowerCase())
+  })
+  this.setState(input);
+  this.setState.employees(filtered);
+}
+
+
 
   handleInputChange = event => {
     this.setState({ search: event.target.value });
@@ -45,7 +57,7 @@ class Search extends Component {
         if (res.data.status === "error") {
           throw new Error(res.data.message);
         }
-        this.setState({ results: res.data.message, error: "" });
+        this.setState({ employees: res.data.results, error: "" });
       })
       .catch(err => this.setState({ error: err.message }));
   };
@@ -68,13 +80,14 @@ class Search extends Component {
            
           />
           {[...this.state.employees].map((res) => (
-            <SearchResults
+            <SearchResults style={{ width: "100%" }}
             firstName={res.firstName}
             lastName={res.lastName}
-            pictures={res.picture}
+            picture={res.picture}
+            email={res.email}
+            phone={res.phone}
             
-            
-            
+        
             />
           ))}
          

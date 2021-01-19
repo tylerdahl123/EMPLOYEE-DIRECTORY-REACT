@@ -14,12 +14,12 @@
 // }//need to build out the thing that the data will rest in for somereason it seems as though i haven o way of being able to display the data on the screen.
 
 import React from 'react';
-
+import "./style.css"
 
   function SearchResults(props) {
     return (
       
-        <tr>
+        <tr className="search-results">
           <th>
             <img alt={props.firstName} src={props.picture} />
           </th>
