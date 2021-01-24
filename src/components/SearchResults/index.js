@@ -28,6 +28,9 @@ import "./style.css"
           <td>{props.email}</td>
           <td>{props.phone}</td>
           <td>{props.city}</td>
+          <td>{props.data}</td>
+          <td>{props.age}</td>
+          
         </tr>
      
     );

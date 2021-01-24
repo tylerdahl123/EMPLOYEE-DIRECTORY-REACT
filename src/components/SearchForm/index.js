@@ -1,27 +1,35 @@
 import React from "react";
 import "./style.css";
 
-function SearchForm(props) {
+const employees = ["test", "best", "jest"];
+function SearchForm() {
+  const [searchTerm, setSearchTerm] = React.useState("");
+  const [searchResults, setSearchResults] = React.useState([]);
+  const handleChange = e => {
+    setSearchTerm(e.target.value);
+  };
+  React.useEffect(() => {
+    const results = employees.filter(employee =>
+      employee.toLowerCase().includes(searchTerm)
+    );
+    setSearchResults(results);
+  }, [searchTerm]);
   return (
-    <form>
-      <div className="form-group" style={{ display: 'flex' }}>
-        <label htmlFor="search"></label>
-        <input
-          onChange={props.handleInputChange}
-          value={props.search}
-          name="search"
-          type="text"
-          className="form-control"
-          placeholder="Search Employee"
-          id="search"
-        />
-        <button onClick={props.handleFormSubmit} className="btn btn-primary">
-          Search
-        </button>
-    
-      </div>
-    </form>
+    <div className="App">
+      <input
+        type="text"
+        placeholder="Search"
+        value={searchTerm}
+        onChange={handleChange}
+      />
+      <ul>
+        {searchResults.map(item => (
+          <li>{item}</li>
+        ))}
+      </ul>
+    </div>
   );
 }
+
 
 export default SearchForm;

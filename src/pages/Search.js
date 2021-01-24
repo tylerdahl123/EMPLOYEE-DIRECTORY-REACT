@@ -36,13 +36,16 @@ class Search extends Component {
 
 
 
-findEmployee = async (input) => {
-  const filtered = this.state.employees.filter(employee => {
-    return employee.name.toLowerCase().includes(input.toLowerCase())
-  })
-  this.setState(input);
-  this.setState.employees(filtered);
-}
+  searchEmployee = (filter) => {
+    console.log('search', filter);
+    const filteredList = this.state.employees.filter((name) => {
+      //merge data together, then check to see if employee exists
+      let values = Object.value(name).join('').toLowerCase();
+      return values.indexOf(filter.toLowerCase()) !== -1;
+    });
+    //Update the employee list with the filtered value
+    this.setState({ employees: filteredList });
+  };
 
 
 
@@ -50,17 +53,21 @@ findEmployee = async (input) => {
     this.setState({ search: event.target.value });
   };
 
+
   handleFormSubmit = event => {
     event.preventDefault();
-    API.getUsers(this.state.search)
+    console.log("clicked");
+    API.getNames(this.state.search)
+   //instead of making an api call make a filter functional loop...return all the results with the name eqaul to the search...reset employee array to filtered results 
       .then(res => {
         if (res.data.status === "error") {
-          throw new Error(res.data.message);
-        }
-        this.setState({ employees: res.data.results, error: "" });
+          throw new Error(res.data.results);
+        } 
+       console.log(res);  
+       this.setState({ result: res.data.results, error: "" });
       })
       .catch(err => this.setState({ error: err.message }));
-  };
+ };
   //in pupster they have the results get autofilled into the searchbar for the Componenet did mount feature...i need to be able to translate that into the whole div.
   render() {
     return (
@@ -74,9 +81,9 @@ findEmployee = async (input) => {
             {this.state.error}
           </Alert>
           <SearchForm
-          value={this.state.search}
+          value={this.state.search} 
+           handleInputChange={this.handleInputChange}
             handleFormSubmit={this.handleFormSubmit}
-            handleInputChange={this.handleInputChange}
            
           />
           {[...this.state.employees].map((res) => (
@@ -86,7 +93,7 @@ findEmployee = async (input) => {
             picture={res.picture}
             email={res.email}
             phone={res.phone}
-            
+           
         
             />
           ))}
