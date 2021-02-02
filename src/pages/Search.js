@@ -10,17 +10,26 @@ class Search extends Component {
   state = {
     search: "",
     employees: [],
+    filteredEmployees: [],
     result: [],
     error: ""
   };
-//check out sorting by email or gender
-// When the component mounts, get a list of all available base breeds and update this.state.breeds
+
+// When the component mounts, get a list of all available base employees and update this.state.employees
   componentDidMount() {
     API.getUsers()
       .then((res) => {
-        console.log(res);
-        this.setState({
+        // console.log(res);
+        this.setState({...this.state,
           employees: res.data.results.map((employee, id) => ({
+            firstName: employee.name.first,
+            lastName: employee.name.last,
+            email: employee.email,
+            phone: employee.phone,
+            picture: employee.picture.large,
+            key: id,
+          })),
+          filteredEmployees: res.data.results.map((employee, id) => ({
             firstName: employee.name.first,
             lastName: employee.name.last,
             email: employee.email,
@@ -34,16 +43,18 @@ class Search extends Component {
   }
 
 
-  handleInputChange = event => {
-    this.setState({ search: event.target.value });
+  handleInputChange = event => { console.log(event);
+this.setState({ search: event.target.value });
+this.filteredEmployees();
   };
 
 
 
   //instead of making an api call make a filter functional loop...return all the results with the name eqaul to the search...reset employee array to filtered results 
 filteredEmployees(){
+  console.log(this.state.employees, this.state.filteredEmployees, "hello")
   const search = this.state.search.toLowerCase();
-  return this.state.employees.filter(employee =>{
+ return  this.state.filteredEmployees = this.state.employees.filter(employee =>{
     return (
       employee.firstName.toLowerCase().includes(search) || 
       employee.lastName.toLowerCase().includes(search)
@@ -52,24 +63,37 @@ filteredEmployees(){
 }
 
 
+sortEmployees(){
+  console.log(this);
+  const sortedEmployees =  this.state.employees.sort((a,b) => {
+    if (a.firstName.toLowerCase()< b.firstName.toLowerCase()) return -1;
+    if (a.firstName.toLowerCase()> b.firstName.toLowerCase()) return 1;
+    return 0;
+      
+    
+  }) 
+  console.log(sortedEmployees);
 
-displayEmployees = () => {
-  return this.filteredEmployees()
-  
-    .map((employee, index) => {
-      return (
-        <tr key={index}>
-          <td>
-            <img src={employee.picture} alt="user"></img>
-          </td>
-          <td>{employee.firstName}</td>
-          <td>{employee.lastName}</td>
-          <td>{employee.email}</td>
-         <td>{employee.phone}</td>
-        </tr>
-      );
-    });
-};
+  this.setState({...this.state, filteredEmployees: sortedEmployees});
+}
+
+//make sure to update teh sate 
+// displayEmployees = () => {
+//   return this.filteredEmployees()
+//     .map((employee, index) => {
+//       return (
+//         <tr key={index}>
+//           <td>
+//             <img src={employee.picture} alt="user"></img>
+//           </td>
+//           <td>{employee.firstName}</td>
+//           <td>{employee.lastName}</td>
+//           <td>{employee.email}</td>
+//          <td>{employee.phone}</td>
+//         </tr>
+//       );
+//     });
+// };
 
 
 
@@ -93,11 +117,25 @@ displayEmployees = () => {
           </Alert>
          
           <input
-            onChange={this.handleInputChange}
+            onChange={(event) => this.handleInputChange(event)}
             type="search"
             placeholder="Search By Name"
           />
-          <tbody>{this.displayEmployees()}</tbody>
+          {this.state.filteredEmployees.map((employee, index) => {
+      return (
+        <tr key={index}>
+          <td>
+            <img src={employee.picture} alt="user"></img>
+          </td>
+          <td>{employee.firstName}</td>
+          <td>{employee.lastName}</td>
+          <td>{employee.email}</td>
+         <td>{employee.phone}</td>
+        </tr>
+      );
+    })}
+          <button onClick={() => this.sortEmployees()} >Sort by Alphabetical order.</button>
+          {/* <tbody>{this.displayEmployees()}</tbody> */}
         </Container>
       </div>
     );
