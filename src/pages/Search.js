@@ -4,7 +4,7 @@ import Container from "../components/Container";
 import SearchForm from "../components/SearchForm";
 import SearchResults from "../components/SearchResults";
 import Alert from "../components/Alert";
-import Header from "../components/Header/style.css"
+
 
 class Search extends Component {
   state = {
@@ -15,18 +15,18 @@ class Search extends Component {
     error: ""
   };
 //check out sorting by email or gender
-  // When the component mounts, get a list of all available base breeds and update this.state.breeds
+// When the component mounts, get a list of all available base breeds and update this.state.breeds
   componentDidMount() {
     API.getUsers()
       .then((res) => {
-        console.log(res);
+        // console.log(res);
         this.setState({
-          employees: res.data.results.map((event, id) => ({
-            firstName: event.name.first,
-            lastName: event.name.last,
-            email: event.email,
-            phone: event.phone,
-            picture: event.picture.large,
+          employees: res.data.results.map((employee, id) => ({
+            firstName: employee.name.first,
+            lastName: employee.name.last,
+            email: employee.email,
+            phone: employee.phone,
+            picture: employee.picture.large,
             key: id,
           })),
         });
@@ -35,39 +35,51 @@ class Search extends Component {
   }
 
 
-
-  searchEmployee = (filter) => {
-    console.log('search', filter);
-    const filteredList = this.state.employees.filter((name) => {
-      //merge data together, then check to see if employee exists
-      let values = Object.value(name).join('').toLowerCase();
-      return values.indexOf(filter.toLowerCase()) !== -1;
-    });
-    //Update the employee list with the filtered value
-    this.setState({ employees: filteredList });
-  };
-
-
-
   handleInputChange = event => {
     this.setState({ search: event.target.value });
   };
 
 
+
+  //instead of making an api call make a filter functional loop...return all the results with the name eqaul to the search...reset employee array to filtered results 
+filteredEmployees(){
+  const search = this.state.search.toLowerCase();
+  return this.state.employees.filter(employee =>{
+    return (
+      employee.firstName.toLowerCase().includes(search) || 
+      employee.lastName.toLowerCase().includes(search)
+    )
+  })
+}
+
+
+
+displayEmployees = () => {
+  return this.filteredEmployees()
+    .sort(this.sortEmployees)
+    .map((employee, index) => {
+      return (
+        <tr key={index}>
+          <td>
+            <img src={employee.picture} alt="user"></img>
+          </td>
+          <td>{employee.firstName}</td>
+          <td>{employee.lastName}</td>
+          <td>{employee.email}</td>
+         <td>{employee.phone}</td>
+        </tr>
+      );
+    });
+};
+
+
+
   handleFormSubmit = event => {
     event.preventDefault();
     console.log("clicked");
-    API.getNames(this.state.search)
-   //instead of making an api call make a filter functional loop...return all the results with the name eqaul to the search...reset employee array to filtered results 
-      .then(res => {
-        if (res.data.status === "error") {
-          throw new Error(res.data.results);
-        } 
-       console.log(res);  
-       this.setState({ result: res.data.results, error: "" });
-      })
-      .catch(err => this.setState({ error: err.message }));
  };
+
+
   //in pupster they have the results get autofilled into the searchbar for the Componenet did mount feature...i need to be able to translate that into the whole div.
   render() {
     return (
@@ -80,24 +92,26 @@ class Search extends Component {
           >
             {this.state.error}
           </Alert>
-          <SearchForm
+          {/* <SearchForm
           value={this.state.search} 
            handleInputChange={this.handleInputChange}
             handleFormSubmit={this.handleFormSubmit}
-           
+          /> */}
+          <input
+            onChange={this.handleInputChange}
+            type="search"
+            placeholder="Search By Name"
           />
-          {[...this.state.employees].map((res) => (
+          {/* {[...this.state.employees].map((res) => (
             <SearchResults style={{ width: "100%" }}
             firstName={res.firstName}
             lastName={res.lastName}
             picture={res.picture}
             email={res.email}
             phone={res.phone}
-           
-        
             />
-          ))}
-         
+          ))} */}
+          <tbody>{this.displayEmployees()}</tbody>
         </Container>
       </div>
     );

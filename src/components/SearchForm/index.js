@@ -1,10 +1,18 @@
 import React from "react";
 import "./style.css";
+import API from "../../utils/API"
 
-const employees = ["test", "best", "jest"];
+const employees = [
+
+  
+]
+
+
+
 function SearchForm() {
   const [searchTerm, setSearchTerm] = React.useState("");
   const [searchResults, setSearchResults] = React.useState([]);
+ 
   const handleChange = e => {
     setSearchTerm(e.target.value);
   };
@@ -12,6 +20,8 @@ function SearchForm() {
     const results = employees.filter(employee =>
       employee.toLowerCase().includes(searchTerm)
     );
+      
+
     setSearchResults(results);
   }, [searchTerm]);
   return (
@@ -23,8 +33,8 @@ function SearchForm() {
         onChange={handleChange}
       />
       <ul>
-        {searchResults.map(item => (
-          <li>{item}</li>
+        {searchResults.map(name => (
+          <li>{name}</li>
         ))}
       </ul>
     </div>
