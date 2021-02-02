@@ -11,7 +11,6 @@ class Search extends Component {
     search: "",
     employees: [],
     result: [],
-    isMale: false,
     error: ""
   };
 //check out sorting by email or gender
@@ -19,7 +18,7 @@ class Search extends Component {
   componentDidMount() {
     API.getUsers()
       .then((res) => {
-        // console.log(res);
+        console.log(res);
         this.setState({
           employees: res.data.results.map((employee, id) => ({
             firstName: employee.name.first,
@@ -56,7 +55,7 @@ filteredEmployees(){
 
 displayEmployees = () => {
   return this.filteredEmployees()
-    .sort(this.sortEmployees)
+  
     .map((employee, index) => {
       return (
         <tr key={index}>
@@ -76,7 +75,7 @@ displayEmployees = () => {
 
   handleFormSubmit = event => {
     event.preventDefault();
-    console.log("clicked");
+    
  };
 
 
@@ -92,25 +91,12 @@ displayEmployees = () => {
           >
             {this.state.error}
           </Alert>
-          {/* <SearchForm
-          value={this.state.search} 
-           handleInputChange={this.handleInputChange}
-            handleFormSubmit={this.handleFormSubmit}
-          /> */}
+         
           <input
             onChange={this.handleInputChange}
             type="search"
             placeholder="Search By Name"
           />
-          {/* {[...this.state.employees].map((res) => (
-            <SearchResults style={{ width: "100%" }}
-            firstName={res.firstName}
-            lastName={res.lastName}
-            picture={res.picture}
-            email={res.email}
-            phone={res.phone}
-            />
-          ))} */}
           <tbody>{this.displayEmployees()}</tbody>
         </Container>
       </div>
