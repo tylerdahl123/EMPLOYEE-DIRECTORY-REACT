@@ -62,7 +62,7 @@ filteredEmployees(){
   })
 }
 
-
+//tutor help along with stack overflow help 2/2/2021
 sortEmployees(){
   console.log(this);
   const sortedEmployees =  this.state.employees.sort((a,b) => {
