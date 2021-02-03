@@ -1,13 +1,13 @@
 import React from "react"
 import './App.css';
-import Search from "./pages/Search"
+import Main from "./pages/Main"
 
 
 
 function App(){
   return (
 <div>
-  <Search />
+  <Main />
 </div>
 )
 }
