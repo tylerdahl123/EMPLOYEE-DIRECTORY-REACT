@@ -54,6 +54,7 @@ this.filteredEmployees();
 filteredEmployees(){
   console.log(this.state.employees, this.state.filteredEmployees, "hello")
   const search = this.state.search.toLowerCase();
+  //figure out how to return the employees after i search...bring back the other ones. 
  return  this.state.filteredEmployees = this.state.employees.filter(employee =>{
     return (
       employee.firstName.toLowerCase().includes(search) || 
@@ -78,22 +79,23 @@ sortEmployees(){
 }
 
 //make sure to update teh sate 
-// displayEmployees = () => {
-//   return this.filteredEmployees()
-//     .map((employee, index) => {
-//       return (
-//         <tr key={index}>
-//           <td>
-//             <img src={employee.picture} alt="user"></img>
-//           </td>
-//           <td>{employee.firstName}</td>
-//           <td>{employee.lastName}</td>
-//           <td>{employee.email}</td>
-//          <td>{employee.phone}</td>
-//         </tr>
-//       );
-//     });
-// };
+displayEmployees = () => {
+  return this.filteredEmployees()
+  .sort(this.sortEmployees)
+    .map((employee, index) => {
+      return (
+        <tr key={index}>
+          <td>
+            <img src={employee.picture} alt="user"></img>
+          </td>
+          <td>{employee.firstName}</td>
+          <td>{employee.lastName}</td>
+          <td>{employee.email}</td>
+         <td>{employee.phone}</td>
+        </tr>
+      );
+    });
+};
 
 
 
@@ -115,12 +117,13 @@ sortEmployees(){
           >
             {this.state.error}
           </Alert>
-         
+        
           <input
             onChange={(event) => this.handleInputChange(event)}
             type="search"
             placeholder="Search By Name"
-          />
+          />   
+          <button onClick={() => this.sortEmployees()} > Or Sort by Alphabetical order.</button>
           {this.state.filteredEmployees.map((employee, index) => {
       return (
         <tr key={index}>
@@ -134,7 +137,7 @@ sortEmployees(){
         </tr>
       );
     })}
-          <button onClick={() => this.sortEmployees()} >Sort by Alphabetical order.</button>
+          
           {/* <tbody>{this.displayEmployees()}</tbody> */}
         </Container>
       </div>

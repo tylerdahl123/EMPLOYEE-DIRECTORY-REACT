@@ -2,7 +2,7 @@ import axios from "axios";
 
 export default {
     getUsers: function(){
-        return axios.get("https://randomuser.me/api/?results=5&nat=us")
+        return axios.get("https://randomuser.me/api/?results=100&nat=us")
     },
     getGenders: function(){
         return axios.get("https://cors-anywhere.herokuapp.com/https://randomuser.me/api/?inc=gender")
