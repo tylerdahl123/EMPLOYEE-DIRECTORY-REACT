@@ -24,7 +24,7 @@
 ## License 
 ---
 
- MIT License license(s) 
+ 
 ## Questions 
 ---
 
