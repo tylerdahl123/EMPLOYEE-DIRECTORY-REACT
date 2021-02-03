@@ -1,4 +1,4 @@
-![Badge for Github License](https://img.shields.io/github/license/tylerdahl123/EMPLOYEE-REACT-DIRECTORY)![Badge for GitHub repo top language](https://img.shields.io/github/languages/top/tylerdahl123/EMPLOYEE-REACT-DIRECTORY?style=flat&logo=appveyor) ![Badge for GitHub last commit](https://img.shields.io/github/last-commit/tylerdahl123/EMPLOYEE-REACT-DIRECTORY?style=flat&logo=appveyor) 
+![Badge for Github License](https://img.shields.io/github/license/tylerdahl123/EMPLOYEE-DIRECTORY-REACT)![Badge for GitHub repo top language](https://img.shields.io/github/languages/top/tylerdahl123/EMPLOYEE-REACT-DIRECTORY?style=flat&logo=appveyor) ![Badge for GitHub last commit](https://img.shields.io/github/last-commit/tylerdahl123/EMPLOYEE-REACT-DIRECTORY?style=flat&logo=appveyor) 
 
 # EMPLOYEE-REACT-DIRECTORY
 ## Description
