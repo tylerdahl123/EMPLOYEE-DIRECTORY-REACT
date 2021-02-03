@@ -122,7 +122,7 @@ sortEmployees(){
       );
     })}
           
-          {/* <tbody>{this.displayEmployees()}</tbody> */}
+        
         </Container>
         </Wrapper>
       </div>
