@@ -107,6 +107,7 @@ sortEmployees(){
             type="search"
             placeholder="Search By Name"
           />   
+          {/* also got help from a tutor on this portion */}
           <button onClick={() => this.sortEmployees()} > Or Sort by Alphabetical order.</button>
           {this.state.filteredEmployees.map((employee, index) => {
       return (
