@@ -1,10 +1,9 @@
 import React, { Component } from "react";
 import API from "../utils/API";
 import Container from "../components/Container";
-import SearchForm from "../components/SearchForm";
-import SearchResults from "../components/SearchResults";
+import Header from "../components/Header"
 import Alert from "../components/Alert";
-
+import Wrapper from "../components/Wrapper";
 
 class Search extends Component {
   state = {
@@ -109,6 +108,8 @@ displayEmployees = () => {
   render() {
     return (
       <div>
+        <Wrapper >
+        <Header />
         <Container style={{ minHeight: "80%" }}>
           <h1 className="text-center">Search By Employee Name!</h1>
           <Alert
@@ -140,6 +141,7 @@ displayEmployees = () => {
           
           {/* <tbody>{this.displayEmployees()}</tbody> */}
         </Container>
+        </Wrapper>
       </div>
     );
   }
