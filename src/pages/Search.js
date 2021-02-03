@@ -48,7 +48,7 @@ this.filteredEmployees();
   };
 
 
-
+  //got help from a tutor on this part 2/2/2021
   //instead of making an api call make a filter functional loop...return all the results with the name eqaul to the search...reset employee array to filtered results 
 filteredEmployees(){
   console.log(this.state.employees, this.state.filteredEmployees, "hello")
@@ -78,23 +78,6 @@ sortEmployees(){
 }
 
 //make sure to update teh sate 
-displayEmployees = () => {
-  return this.filteredEmployees()
-  .sort(this.sortEmployees)
-    .map((employee, index) => {
-      return (
-        <tr key={index}>
-          <td>
-            <img src={employee.picture} alt="user"></img>
-          </td>
-          <td>{employee.firstName}</td>
-          <td>{employee.lastName}</td>
-          <td>{employee.email}</td>
-         <td>{employee.phone}</td>
-        </tr>
-      );
-    });
-};
 
 
 
